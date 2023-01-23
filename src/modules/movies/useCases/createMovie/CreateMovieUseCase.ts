@@ -5,6 +5,7 @@ import { CreateMovieDTO } from "../../dtos/CreateMovieDTO";
 
 export class CreateMovieUseCase {
   async execute({
+    id,
     title,
     duration,
     release_date,
@@ -23,6 +24,7 @@ export class CreateMovieUseCase {
     // Criar o filme
     const movie = await prisma.movie.create({
       data: {
+        id,
         title,
         duration,
         release_date,

@@ -1,0 +1,26 @@
+
+###
+@HOSTAPI=http://127.0.0.1:3333
+
+
+POST {{HOSTAPI}}/movies HTTP/1.1
+Content-Type: application/json
+
+{
+ "title": "teste4",
+ "duration": 554,
+ "release_date":"2023-01-23T22:58:59.513Z"
+}
+
+### 
+
+GET {{HOSTAPI}}/movies/release HTTP/1.1
+Content-Type: application/json
+
+### 
+
+
+DELETE  {{HOSTAPI}}/movies/1e79b847-2e48-410d-9b16-2bdaea0729ca HTTP/1.1
+
+
+### 
