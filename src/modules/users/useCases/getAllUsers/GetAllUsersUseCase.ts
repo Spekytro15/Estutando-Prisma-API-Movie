@@ -5,9 +5,9 @@ export class GetAllUsersUseCase {
   async execute(): Promise<User[]> {
     const users = await prisma.user.findMany({
       include: {
-        movie_rent: {
+        post_user: {
           select: {
-            movie: {
+            post: {
               select: {
                 title: true,
               },

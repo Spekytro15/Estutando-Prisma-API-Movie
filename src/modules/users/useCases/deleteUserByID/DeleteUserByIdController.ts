@@ -12,8 +12,6 @@ export class DeleteUserByIdController {
       email: "",
     });
 
-    return res.status(201).send({
-      Menssage: "Sucess full",
-    });
+    return res.status(201).send({ status: 201, items: result });
   }
 }

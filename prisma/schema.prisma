@@ -1,13 +1,15 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
-//===============
-// Conexao
-//===============
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 //===============
 // Usuario
 //===============
@@ -18,35 +20,68 @@ model User {
   name       String
   created_at DateTime    @default(now())
   updated_at DateTime    @updatedAt
-  movie_rent MovieRent[] @relation("user")
+  post_user Post_User[]  @relation("user")
 
-  @@map("users")
+
+  @@map("user")
 }
 
 //===============
-// Filme
+// POST
 //===============
 
-model Movie {
+model Post {
   id           String      @id @default(uuid())
   title        String      @unique
-  duration     Int
-  release_date DateTime
-  movie_rent   MovieRent[] @relation("movie")
+  subtitle     String
+  subject      String
+  url_photo    String
+  date_post    DateTime   @default(now())
+  post_grupo   Post_Group[] @relation("post")
+  post_user   Post_User[] @relation("post")
 
-  @@map("movies")
+  @@map("post")
 }
 
 //===============
-// Relacionamento
+// Group
 //===============
 
-model MovieRent {
+model Group {
+  id           String      @id @default(uuid())
+  name_group       String      
+  description    String
+  Color_Hex      String
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  post_grupo   Post_Group[] @relation("group")
+
+  @@map("group")
+}
+//===============
+// Relacionamento POST GRUPO POST USUARIO
+//===============
+
+model Post_Group {
+  
+  group    Group   @relation("group", fields: [groupId], references: [id])
+  groupId  String
+  post  Post  @relation("post", fields: [postId], references: [id])
+  postId String
+
+  @@id([groupId, postId])
+  @@map("post_group")
+}
+//===============
+// Relacionamento POST USER POST USUARIO
+//===============
+
+model Post_User {
   user    User   @relation("user", fields: [userId], references: [id])
   userId  String
-  movie   Movie  @relation("movie", fields: [movieId], references: [id])
-  movieId String
+  post  Post  @relation("post", fields: [postId], references: [id])
+  postId String
 
-  @@id([userId, movieId])
-  @@map("movie_rent")
+  @@id([userId, postId])
+  @@map("post_user")
 }

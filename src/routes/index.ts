@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import { movieRoutes } from "./movie.routes";
+import { postRoutes } from "./post.routes";
 import { userRoutes } from "./user.routes";
 
 const routes = Router();
 
 routes.use("/users", userRoutes);
-routes.use("/movies", movieRoutes);
+routes.use("/posts", postRoutes);
 
 export { routes };
